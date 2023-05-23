@@ -1,0 +1,79 @@
+//task
+
+def calculate_discounted_price(product_name, quantity, price):
+    total_amount = quantity * price
+    discount_rule = None
+    discount_amount =0
+        if quantity > 10:
+        discount_rule = "bulk_5_discount"
+        discount_amount = total_amount * 0.05
+
+    return total_amount - discount_amount, discount_rule, discount_amount
+
+def calculate_shipping_fee(total_quantity)
+    packages = total_quantity // 10 
+    if total_quantity % 10 != 0
+        packages += 1 
+    shipping_fee = packages * 5
+    return shipping_fee
+
+def main():
+    catalog = {
+        "Product A": 20,
+        "Product B": 40,
+        "Product C": 50
+    }
+
+    quantities = {}
+    gift_wraps = {}
+
+    for product, price in catalog.items()
+        quantity = int(input("Enter the quantity of {product}: "))
+        gift_wrap = input("Is {product} wrapped as a gift? (yes/no): ").lower() == "yes"
+        quantities[product] = quantity
+        gift_wraps[product] = gift_wrap
+
+    subtotal = 0
+    for product, quantity in quantities.items()
+        price = catalog[product]
+        total_amount, _, _ = calculate_discounted_price(product, quantity, price)
+        subtotal += total_amount
+    if subtotal > 200:
+        discount_rule = "flat_10_discount"
+        discount_amount = 10
+        subtotal -= discount_amount
+    else:
+        discount_rule = None
+        discount_amount = 0
+
+    total_quantity = sum(quantities.values())
+    if total_quantity > 20
+        discount_rule = "bulk_10_discount"
+        discount_amount = subtotal * 0.10
+        subtotal -= discount_amount
+    if total_quantity > 30 and any(quantity > 15 for quantity in quantities.values())
+        discount_rule = "tiered_50_discount"
+        quantity_discounted = min(max(quantity - 15, 0) for quantity in quantities.values())
+        discount_amount = quantity_discounted * catalog[product] * 0.50
+        subtotal -= discount_amount
+
+    shipping_fee = calculate_shipping_fee(total_quantity)
+    gift_wrap_fee = sum([quantities[product] for product, gift_wrap in gift_wraps.items() if gift_wrap]) * 1
+
+    total = subtotal + shipping_fee + gift_wrap_fee
+
+    print("Product Details:")
+    for product, quantity in quantities.items()
+        price = catalog[product]
+        total_amount, _, _ = calculate_discounted_price(product, quantity, price)
+        print("{product}: Quantity: {quantity}, Total: ${total_amount}")
+
+    print("Subtotal: ${subtotal}")
+    if discount_rule:
+        print("Discount Applied: {discount_rule}, Amount: ${discount_amount}")
+    print("Shipping Fee: ${shipping_fee}")
+    print("Gift Wrap Fee: ${gift_wrap_fee}")
+    print("Total: ${total}")
+
+if __name__ == "__main__":
+    main()
